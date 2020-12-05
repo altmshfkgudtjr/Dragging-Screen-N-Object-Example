@@ -7,7 +7,7 @@ const mousedownEvent = (e)=> {
 	if (e.button !== 1) return;
 	
 	e.preventDefault();				// 기존 Event 중지
-	e.stopImmediatePropagation();	// 법령 끌기 기능 중지
+	e.stopImmediatePropagation();	// 끌기 기능 중지
 
 	target.addEventListener("mousemove", mousemoveEvent);	// 드래깅 이벤트 등록
 	target.classList.add('screenMouseDragging');
