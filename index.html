@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dragging Screen</title>
+</head>
+<link rel="stylesheet" type="text/css" href="./style.css">
+<body>
+	<div id="screen" class="screen">
+		<div id="window" class="window">
+			<div class="background">
+				<div id="box1" class="box">[1] Drag Me!</div>
+				<div id="box2" class="box">[2] Drag Me!</div>
+			</div>
+		</div>
+	</div>
+	<button id="button1" class="button button1">Move to One</button>
+	<button id="button2" class="button button2">Move to Two</button>
+</body>
+<script src="./screenDragging.js"></script>
+<script src="./elementDragging.js"></script>
+<script>
+	document.querySelector("#window").scrollLeft = 2000;
+	document.querySelector("#window").scrollTop = 2000;
+
+	screenDragMovingEvent(document.querySelector("#window"));
+
+	document.querySelector("#box1").addEventListener('mousedown', dragElement);
+	document.querySelector("#box2").addEventListener('mousedown', dragElement);
+
+	document.querySelector('#button1').addEventListener('click', () => {
+		document.querySelector('#box1').scrollIntoView({ inline: 'center', block: 'center',  behavior: 'smooth' });
+	});
+	document.querySelector('#button2').addEventListener('click', () => {
+		document.querySelector('#box2').scrollIntoView({ inline: 'center', block: 'center',  behavior: 'smooth' });
+	});
+</script>
+</html>
