@@ -2,6 +2,8 @@
 
 ![ElementScreenDragging](https://user-images.githubusercontent.com/47492535/101277782-21010a00-37fa-11eb-8d81-e8824f19b7cb.gif)
 
+![MouseScreenDragging](https://user-images.githubusercontent.com/47492535/101277814-602f5b00-37fa-11eb-85b7-d7373ca28268.gif)
+
 **예제 코드 설명**
 
 - Mouse Wheel 클릭을 통한 Trello 같은 Screen Dragging
