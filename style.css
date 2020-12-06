@@ -77,10 +77,6 @@ body {
 	left: 2900px;
 }
 
-.screenMouseDragging {
-	cursor: grabbing;
-}
-
 .button {
 	position: fixed;
 	width: 120px;
