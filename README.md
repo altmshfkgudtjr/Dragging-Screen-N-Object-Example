@@ -1,6 +1,6 @@
 # Dragging-Screen-N-Object-Example
 
-![image-20201206000303663](https://user-images.githubusercontent.com/47492535/101246433-a3d08900-3756-11eb-814e-bd63b2a519f2.png)
+![ElementScreenDragging](https://user-images.githubusercontent.com/47492535/101277782-21010a00-37fa-11eb-8d81-e8824f19b7cb.gif)
 
 **예제 코드 설명**
 
