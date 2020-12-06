@@ -19,14 +19,18 @@
 <script src="./screenDragging.js"></script>
 <script src="./elementDragging.js"></script>
 <script>
+	/* Init Position */
 	document.querySelector("#window").scrollLeft = 2000;
 	document.querySelector("#window").scrollTop = 2000;
 
-	screenDragMovingEvent(document.querySelector("#window"));
+	/* Drag Screen */
+	dragScreen(document.querySelector("#window"));
 
+	/* Drag Element */
 	document.querySelector("#box1").addEventListener('mousedown', dragElement);
 	document.querySelector("#box2").addEventListener('mousedown', dragElement);
 
+	/* Button Click Actions */
 	document.querySelector('#button1').addEventListener('click', () => {
 		document.querySelector('#box1').scrollIntoView({ inline: 'center', block: 'center',  behavior: 'smooth' });
 	});

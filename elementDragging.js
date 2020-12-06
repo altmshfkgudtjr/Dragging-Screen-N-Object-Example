@@ -1,7 +1,4 @@
-/*
-	Dynamic View Draggable Library
-*/
-const dragElement = (e)=> {
+const dragElement = (e) => {
 	const MAX_WIDTH = 5000, MAX_HEIGHT = 5000;
 	const MAX_SPEED = 20;
 	const canvas = document.querySelector('#window');
@@ -11,12 +8,11 @@ const dragElement = (e)=> {
 	let isEdge = false;			// Event 좌표가 가장자리인지 여부
 	let scrolling = false;	// Auto Scroll 함수 진입 여부
 
-	dragMouseDown(e);
+	mouseDown(e);
 
 	/*---------------------------------------------------------------------------------------------------*/
 	
-	/* Draggable 시작 함수 */
-	function dragMouseDown(e) {
+	function mouseDown(e) {
 		e = e || window.event;
 		if (e.button !== 0) return;
 
@@ -24,27 +20,21 @@ const dragElement = (e)=> {
 				 && ('ontouchstart'  in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0)) {
 			originX = e.touches[0].clientX;
 			originY = e.touches[0].clientY;
-			document.addEventListener('touchend', closeDragElement, {'passive': false});
-			document.addEventListener('touchmove', elementDrag, {'passive': false});
+			document.addEventListener('touchend', moueUp, {'passive': false});
+			document.addEventListener('touchmove', mouseMove, {'passive': false});
 		} else {
 			e.preventDefault();
 			originX = e.clientX;
 			originY = e.clientY;
-			document.onmouseup = closeDragElement;
-			document.onmousemove = elementDrag;
+			document.onmouseup = moueUp;
+			document.onmousemove = mouseMove;
 		}
 	}
 
 	/*---------------------------------------------------------------------------------------------------*/
 
-	function elementDrag(e) {
+	function mouseMove(e) {
 		e = e || window.event;
-			
-		/* Auto Scroll 진행 여부 판단 함수 */
-		function scrollingChecker () {
-			return isEdge && scrolling;
-		}
-
 		/*---------------------------------------------------------------------------------------------------*/
 		// ♥: [X|Y]의 별칭
 		// Scroll♥: Element가 현재 Screen 가장자리 영역에 들어가면 Auto Scroll을 위해서 설정
@@ -112,35 +102,36 @@ const dragElement = (e)=> {
 
 		/*---------------------------------------------------------------------------------------------------*/
 
-		/*Auto Scroll 함수*/
-		function scrollToEdge() {
-			if (!scrollingChecker()) {
+		function keepScrolling() {
+			if (!(function() {
+				return isEdge && scrolling;
+			})()) {
 				scrolling = false;
 				return;
 			}
 
 			if (elmnt.offsetLeft + x + scrollX >= 0 && elmnt.offsetLeft + x + scrollX + elmnt.offsetWidth <= MAX_WIDTH) {
-				canvas.scrollLeft += scrollX;
-				x += scrollX;
-				originX -= scrollX;
+				canvas.scrollLeft += Math.floor(scrollX);
+				x += Math.floor(scrollX);
+				originX -= Math.floor(scrollX);
 			}
 
 			if ((elmnt.offsetTop + y + scrollY) >= 0 && (elmnt.offsetTop + y + scrollY + elmnt.offsetHeight) <= MAX_HEIGHT) {
-				canvas.scrollTop += scrollY;
-				y += scrollY;
-				originY -= scrollY;
+				canvas.scrollTop += Math.floor(scrollY);
+				y += Math.floor(scrollY);
+				originY -= Math.floor(scrollY);
 			}
 
 			elmnt.style.transform = `translate(${x}px, ${y}px)`;
 
-			window.requestAnimationFrame(scrollToEdge);
+			window.requestAnimationFrame(keepScrolling);
 		}
 
 		/*---------------------------------------------------------------------------------------------------*/
 
 		if (isEdge && !scrolling) {
 			scrolling = true;
-			window.requestAnimationFrame(scrollToEdge);
+			window.requestAnimationFrame(keepScrolling);
 		} else {
 			elmnt.style.transform = `translate(${x}px, ${y}px)`;
 		}
@@ -149,7 +140,7 @@ const dragElement = (e)=> {
 	/*---------------------------------------------------------------------------------------------------*/
 
 	/* Draggable 종료 함수 */
-	function closeDragElement() {
+	function moueUp() {
 		scrolling = false;
 		isEdge = false;
 
@@ -157,8 +148,8 @@ const dragElement = (e)=> {
 		elmnt.style.left = `${elmnt.offsetLeft + x}px`;
 		elmnt.style.top = `${elmnt.offsetTop + y}px`;
 		
-		document.removeEventListener('touchend', closeDragElement);
-		document.removeEventListener('touchmove', elementDrag);
+		document.removeEventListener('touchend', moueUp);
+		document.removeEventListener('touchmove', mouseMove);
 		document.onmouseup = null;
 		document.onmousemove = null;
 	}
